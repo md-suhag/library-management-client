@@ -18,7 +18,7 @@ const navMenu = [
 
 const Navbar = () => {
   return (
-    <nav className="flex justify-between mx-auto  max-w-7xl p-4 bg-primary text-accent">
+    <nav className="flex justify-between mx-auto  max-w-7xl p-4  ">
       <div className="font-semibold">
         <Link to="/">Library Management</Link>
       </div>
@@ -27,9 +27,7 @@ const Navbar = () => {
           <NavLink
             to={item.path}
             key={item.name}
-            className={({ isActive }) =>
-              isActive ? "text-red-500" : "text-accent"
-            }
+            className={({ isActive }) => (isActive ? "text-primary" : "")}
           >
             {item.name}
           </NavLink>
@@ -50,9 +48,7 @@ const Navbar = () => {
               <NavLink
                 to={item.path}
                 key={item.name}
-                className={({ isActive }) =>
-                  isActive ? "text-red-500" : "text-foreground"
-                }
+                className={({ isActive }) => (isActive ? "text-primary" : "")}
               >
                 {item.name}
               </NavLink>

@@ -6,7 +6,10 @@ import Footer from "../shared/Footer";
 const MainLayout = () => {
   return (
     <>
-      <Navbar />
+      <header className="bg-accent">
+        <Navbar />
+      </header>
+
       <main className="mx-auto  max-w-7xl p-4">
         <Outlet />
       </main>
