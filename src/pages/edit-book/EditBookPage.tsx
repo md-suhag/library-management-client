@@ -13,14 +13,46 @@ import { useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
 import { useUpdateBookMutation } from "@/redux/features/book/bookApi";
 import { toast } from "sonner";
-import { type IBook } from "./../../types/index";
 
+import z from "zod";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { zodResolver } from "@hookform/resolvers/zod";
+const editBookSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  description: z.string().min(1, "Description is required"),
+  author: z.string().min(1, "Author is required"),
+  genre: z
+    .string()
+    .refine(
+      (val) =>
+        [
+          "FICTION",
+          "NON_FICTION",
+          "SCIENCE",
+          "HISTORY",
+          "BIOGRAPHY",
+          "FANTASY",
+        ].includes(val),
+      { message: "Genre is required" }
+    ),
+  isbn: z
+    .string()
+    .regex(/^\d{10}$|^\d{13}$/, "ISBN must be 10 or 13 digits long"),
+  copies: z.string().regex(/^\d+$/, "Copies must be a number"),
+});
 const EditBookPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const book = location?.state;
   const [updateBook, { isLoading }] = useUpdateBookMutation();
-  const form = useForm({
+  const form = useForm<z.infer<typeof editBookSchema>>({
+    resolver: zodResolver(editBookSchema),
     defaultValues: {
       title: book.title,
       description: book.description,
@@ -30,26 +62,26 @@ const EditBookPage = () => {
       copies: book.copies,
     },
   });
-  type OnSubmitValues = Pick<
-    IBook,
-    "title" | "description" | "author" | "genre" | "isbn" | "copies"
-  >;
 
-  async function onSubmit(values: OnSubmitValues) {
+  const onSubmit = async (values: z.infer<typeof editBookSchema>) => {
     toast.loading("Updating book...", { id: "update" });
     try {
       await updateBook({
         id: book._id,
         ...values,
+        isbn: parseInt(values.isbn),
+        copies: parseInt(values.copies),
       }).unwrap();
 
       toast.success("Book updated successfully", { id: "update" });
       form.reset();
       navigate("/", { state: { shouldRefetch: true } });
-    } catch (error) {
-      toast.error("Failed to update book", { id: "update" });
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Failed to update book", {
+        id: "update",
+      });
     }
-  }
+  };
 
   // console.log(result);
   if (!book) {
@@ -105,16 +137,28 @@ const EditBookPage = () => {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="genre"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Genre</FormLabel>
-                <FormControl>
-                  <Input placeholder="book Genre" {...field} />
-                </FormControl>
-
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <FormControl>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select Genre" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="FICTION">Fiction</SelectItem>
+                    <SelectItem value="NON_FICTION">Non-Fiction</SelectItem>
+                    <SelectItem value="SCIENCE">Science</SelectItem>
+                    <SelectItem value="HISTORY">History</SelectItem>
+                    <SelectItem value="BIOGRAPHY">Biography</SelectItem>
+                    <SelectItem value="FANTASY">Fantasy</SelectItem>
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
