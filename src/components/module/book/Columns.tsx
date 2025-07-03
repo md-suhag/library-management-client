@@ -12,11 +12,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Link } from "react-router";
 
 export const columns: ColumnDef<IBook>[] = [
   {
     accessorKey: "title",
     header: "Title",
+    cell: ({ row }) => {
+      const book = row.original;
+      return (
+        <Link className="hover:underline" to={`/books/${book._id}`}>
+          {book.title}
+        </Link>
+      );
+    },
   },
   {
     accessorKey: "author",
@@ -55,10 +64,16 @@ export const columns: ColumnDef<IBook>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
+            <DropdownMenuItem asChild>
+              <Link to={`/books/${book._id}`}>View Details</Link>
+            </DropdownMenuItem>
+
             <DropdownMenuItem>Edit book</DropdownMenuItem>
             <DropdownMenuItem>Delete book</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Borrow Book</DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link to={`/borrow/${book._id}`}>Borrow Book</Link>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

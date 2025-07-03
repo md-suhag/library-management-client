@@ -6,7 +6,11 @@ const bookApi = baseApi.injectEndpoints({
       query: () => "/books",
       providesTags: ["books"],
     }),
+    getSingleBook: builder.query({
+      query: (id) => `/books/${id}`,
+      providesTags: (result, error, id) => [{ type: "books", id }],
+    }),
   }),
 });
 
-export const { useGetAllBooksQuery } = bookApi;
+export const { useGetAllBooksQuery, useGetSingleBookQuery } = bookApi;
