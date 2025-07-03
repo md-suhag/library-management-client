@@ -8,7 +8,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -68,7 +67,11 @@ export const columns: ColumnDef<IBook>[] = [
               <Link to={`/books/${book._id}`}>View Details</Link>
             </DropdownMenuItem>
 
-            <DropdownMenuItem>Edit book</DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link state={book} to={`/edit-book/${book._id}`}>
+                Edit book
+              </Link>
+            </DropdownMenuItem>
             <DropdownMenuItem>Delete book</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
