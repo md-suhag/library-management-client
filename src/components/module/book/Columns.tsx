@@ -17,12 +17,15 @@ export const columns: ColumnDef<IBook>[] = [
   {
     accessorKey: "title",
     header: "Title",
+
     cell: ({ row }) => {
       const book = row.original;
       return (
-        <Link className="hover:underline" to={`/books/${book._id}`}>
-          {book.title}
-        </Link>
+        <div className="max-w-3xs md:max-w-xs truncate">
+          <Link className="hover:underline" to={`/books/${book._id}`}>
+            {book.title}
+          </Link>
+        </div>
       );
     },
   },

@@ -44,7 +44,7 @@ const editBookSchema = z.object({
   isbn: z
     .string()
     .regex(/^\d{10}$|^\d{13}$/, "ISBN must be 10 or 13 digits long"),
-  copies: z.string().regex(/^\d+$/, "Copies must be a number"),
+  copies: z.string().min(1, "At least one copy is required"),
 });
 const EditBookPage = () => {
   const navigate = useNavigate();
@@ -59,7 +59,7 @@ const EditBookPage = () => {
       author: book.author,
       genre: book.genre,
       isbn: book.isbn,
-      copies: book.copies,
+      copies: book.copies.toString(),
     },
   });
 
