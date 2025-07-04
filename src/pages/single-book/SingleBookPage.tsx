@@ -70,7 +70,9 @@ const SingleBookPage = () => {
                 <p>Updated: {new Date(book.updatedAt).toLocaleDateString()}</p>
               </div>
               <Button asChild className="mt-4 sm:mt-0" variant="default">
-                <Link to={`/borrow/${book._id}`}>Borrow Book</Link>
+                <Link state={book} to={`/borrow/${book._id}`}>
+                  Borrow Book
+                </Link>
               </Button>
             </div>
           </CardContent>

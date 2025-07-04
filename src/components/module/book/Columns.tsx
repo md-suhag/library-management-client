@@ -66,11 +66,13 @@ export const columns: ColumnDef<IBook>[] = [
       const handleDelete = async () => {
         try {
           toast.loading("deleting book", { id: "delete" });
-          await deleteBook(book._id);
+          await deleteBook(book._id).unwrap();
           setOpen(false);
           toast.success("Book deleted successfully", { id: "delete" });
-        } catch (error) {
-          toast.error("Failed to delete book", { id: "delete" });
+        } catch (error: any) {
+          toast.error(error?.data?.message || "Failed to delete book", {
+            id: "delete",
+          });
         }
       };
       return (
@@ -97,7 +99,9 @@ export const columns: ColumnDef<IBook>[] = [
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
-                <Link to={`/borrow/${book._id}`}>Borrow Book</Link>
+                <Link state={book} to={`/borrow/${book._id}`}>
+                  Borrow Book
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
