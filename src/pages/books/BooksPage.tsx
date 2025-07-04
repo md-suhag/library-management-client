@@ -1,5 +1,5 @@
 import { columns } from "@/components/module/book/Columns";
-import { DataTable } from "@/components/module/book/DataTable";
+import { DataTable } from "@/components/ui/data-table";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetAllBooksQuery } from "@/redux/features/book/bookApi";

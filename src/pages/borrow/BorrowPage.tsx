@@ -1,5 +1,4 @@
-import BorrowBookForm from "@/components/module/book/BorrowBookForm";
-import React from "react";
+import BorrowBookForm from "@/components/module/borrow/BorrowBookForm";
 
 const BorrowPage = () => {
   return (

@@ -10,7 +10,10 @@ const borrowApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [{ type: "books", id: "LIST" }],
     }),
+    borrowSummary: builder.query({
+      query: () => `/borrow`,
+    }),
   }),
 });
 
-export const { useBorrowBookMutation } = borrowApi;
+export const { useBorrowBookMutation, useBorrowSummaryQuery } = borrowApi;
