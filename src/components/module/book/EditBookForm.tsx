@@ -44,7 +44,7 @@ const editBookSchema = z.object({
   isbn: z
     .string()
     .regex(/^\d{10}$|^\d{13}$/, "ISBN must be 10 or 13 digits long"),
-  copies: z.string().min(1, "At least one copy is required"),
+  copies: z.string().min(1, "copies is required"),
 });
 const EditBookForm = () => {
   const navigate = useNavigate();

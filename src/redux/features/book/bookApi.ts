@@ -58,7 +58,7 @@ const bookApi = baseApi.injectEndpoints({
         method: "DELETE",
         url: `/books/${id}`,
       }),
-      invalidatesTags: (_, __, id) => [{ type: "Book", id }],
+      invalidatesTags: (_, __, id) => [{ type: "Book", id }, "Borrow"],
     }),
   }),
 });
