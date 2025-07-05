@@ -83,7 +83,6 @@ const EditBookPage = () => {
     }
   };
 
-  // console.log(result);
   if (!book) {
     return <p>No book data available.</p>;
   }

@@ -8,16 +8,16 @@ const bookApi = baseApi.injectEndpoints({
         result
           ? [
               ...result.data.map(({ _id }: { _id: string }) => ({
-                type: "books",
+                type: "Book",
                 id: _id,
               })),
-              { type: "books", id: "LIST" },
+              { type: "Book", id: "LIST" },
             ]
-          : [{ type: "books", id: "LIST" }],
+          : [{ type: "Book", id: "LIST" }],
     }),
     getSingleBook: builder.query({
       query: (id) => `/books/${id}`,
-      providesTags: (_, __, id) => [{ type: "books", id }],
+      providesTags: (_, __, id) => [{ type: "Book", id }],
     }),
     updateBook: builder.mutation({
       query: ({ id, ...data }) => ({
@@ -25,7 +25,7 @@ const bookApi = baseApi.injectEndpoints({
         url: `/books/${id}`,
         body: data,
       }),
-      invalidatesTags: (_, __, id) => [{ type: "books", id }],
+      invalidatesTags: (_, __, id) => [{ type: "Book", id }],
     }),
     createBook: builder.mutation({
       query: (data) => ({
@@ -39,7 +39,7 @@ const bookApi = baseApi.injectEndpoints({
         method: "DELETE",
         url: `/books/${id}`,
       }),
-      invalidatesTags: (_, __, id) => [{ type: "books", id }],
+      invalidatesTags: (_, __, id) => [{ type: "Book", id }],
     }),
   }),
 });

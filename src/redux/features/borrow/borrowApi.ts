@@ -8,10 +8,11 @@ const borrowApi = baseApi.injectEndpoints({
         url: `/borrow`,
         body: data,
       }),
-      invalidatesTags: [{ type: "books", id: "LIST" }],
+      invalidatesTags: [{ type: "Book", id: "LIST" }, "Borrow"],
     }),
     borrowSummary: builder.query({
       query: () => `/borrow`,
+      providesTags: ["Borrow"],
     }),
   }),
 });

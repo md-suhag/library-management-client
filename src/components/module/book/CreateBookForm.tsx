@@ -79,8 +79,8 @@ const CreateBookForm = () => {
       toast.success("Book created successfully", { id: "create" });
       form.reset();
       navigate("/", { state: { shouldRefetch: true } });
-    } catch (error) {
-      toast.error((error as any)?.data?.message || "Failed to create book", {
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Failed to create book", {
         id: "create",
       });
     }

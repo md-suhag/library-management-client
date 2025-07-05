@@ -48,20 +48,18 @@ const BorrowBookForm = () => {
       dueDate: values.dueDate.toISOString(),
       book: book?._id,
     };
-    console.log(formattedBorrowData);
+
     try {
       toast.loading("Borrowing book...", { id: "borrow" });
       await borrowBook(formattedBorrowData).unwrap();
-      toast.success("borrowing successfull", { id: "borrow" });
+      toast.success("Borrowed successfully", { id: "borrow" });
       form.reset();
-      navigate("/");
+      navigate("/borrow-summary");
     } catch (error: any) {
       toast.error(error?.data?.message || "Failed to borrow book", {
         id: "borrow",
       });
     }
-
-    console.log("Submitted values:", formattedBorrowData);
   };
 
   return (
