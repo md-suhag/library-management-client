@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 
 const SingleBookDetails = () => {
   const { id } = useParams();
-  const { data, isLoading } = useGetSingleBookQuery(id);
+  const { data, isLoading } = useGetSingleBookQuery(id as string);
 
   const book = data?.data;
   return (
