@@ -5,24 +5,17 @@ import { Button } from "@/components/ui/button";
 import { useGetAllBooksQuery } from "@/redux/features/book/bookApi";
 import { Loader2 } from "lucide-react";
 
-import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router";
+import { useState } from "react";
+import { Link } from "react-router";
 import TableSkeleton from "@/components/shared/TableSkeleton";
 
 const BooksPage = () => {
   const [page, setPage] = useState(0);
 
-  const location = useLocation();
-  const shouldRefetch = location.state?.shouldRefetch;
-  const { data, isLoading, isError, isFetching, refetch } = useGetAllBooksQuery(
-    { page }
-  );
+  const { data, isLoading, isError, isFetching } = useGetAllBooksQuery({
+    page,
+  });
 
-  useEffect(() => {
-    if (shouldRefetch) {
-      refetch();
-    }
-  }, [shouldRefetch, refetch]);
   if (isLoading) {
     return <TableSkeleton column={7} row={5} />;
   }
@@ -58,7 +51,8 @@ const BooksPage = () => {
           Previous
         </Button>
         <span>
-          Page {data?.pagination?.page + 1} of {data?.pagination?.totalPages}
+          Page {(data?.pagination?.page ?? 0) + 1} of{" "}
+          {data?.pagination?.totalPages ?? 1}
         </span>
         <Button
           onClick={() => setPage((prev) => prev + 1)}

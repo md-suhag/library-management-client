@@ -51,6 +51,7 @@ const bookApi = baseApi.injectEndpoints({
         url: `/books`,
         body: data,
       }),
+      invalidatesTags: [{ type: "Book", id: "LIST" }],
     }),
     deleteBook: builder.mutation<IDeleteBookResponse, string>({
       query: (id) => ({

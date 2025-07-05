@@ -70,7 +70,7 @@ const CreateBookForm = () => {
   const onSubmit = async (values: z.infer<typeof createBookSchema>) => {
     const formatted = {
       ...values,
-      isbn: parseInt(values.isbn),
+      isbn: values.isbn,
       copies: parseInt(values.copies),
     };
     try {
@@ -78,7 +78,7 @@ const CreateBookForm = () => {
       await createBook(formatted).unwrap();
       toast.success("Book created successfully", { id: "create" });
       form.reset();
-      navigate("/", { state: { shouldRefetch: true } });
+      navigate("/");
     } catch (error: any) {
       toast.error(error?.data?.message || "Failed to create book", {
         id: "create",

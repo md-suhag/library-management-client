@@ -69,13 +69,13 @@ const EditBookForm = () => {
       await updateBook({
         id: book._id,
         ...values,
-        isbn: parseInt(values.isbn),
+        isbn: values.isbn,
         copies: parseInt(values.copies),
       }).unwrap();
 
       toast.success("Book updated successfully", { id: "update" });
       form.reset();
-      navigate("/", { state: { shouldRefetch: true } });
+      navigate("/");
     } catch (error: any) {
       toast.error(error?.data?.message || "Failed to update book", {
         id: "update",
