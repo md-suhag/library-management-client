@@ -2,15 +2,20 @@
 
 ## Introduction
 
-**Library Management ** is a modern library management system.
+Library Management System is a modern, user-friendly application for managing library operations.
 
 ## Features
 
-- **Book:**
-  create new book, show existing book data, update and delete book.
+**Book:**
 
-- **Borrow:**
-  user can brrow book and see all borrowing history.
+- Create new books
+- View existing book details
+- Update and delete book records
+
+**Borrow:**
+
+- Users can borrow books
+- View complete borrowing history
 
 ## Technology Stacks
 
@@ -74,5 +79,3 @@ Follow the instructions given below to install and run the project locally.
    ```bash
    http://localhost:5173
    ```
-
-## Happy Shopping!
