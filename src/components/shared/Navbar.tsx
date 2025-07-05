@@ -42,6 +42,9 @@ const Navbar = () => {
         <SheetContent>
           <SheetHeader>
             <SheetTitle>Library Management</SheetTitle>
+            <SheetDescription className="sr-only">
+              Navigate the library sections
+            </SheetDescription>
           </SheetHeader>
           <div className="flex flex-col h-full justify-center items-center gap-3  font-semibold">
             {navMenu.map((item) => (
