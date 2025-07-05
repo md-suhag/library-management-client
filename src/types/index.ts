@@ -18,3 +18,11 @@ export interface IBorrowSummary {
     isbn: string;
   };
 }
+
+export type GetAllBooksQueryArg = {
+  page?: number;
+  limit?: number;
+  filter?: string;
+  sortBy?: string;
+  sort?: string;
+};

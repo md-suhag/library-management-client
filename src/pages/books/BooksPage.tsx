@@ -5,15 +5,18 @@ import { Button } from "@/components/ui/button";
 import { useGetAllBooksQuery } from "@/redux/features/book/bookApi";
 import { Loader2 } from "lucide-react";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router";
 import TableSkeleton from "@/components/shared/TableSkeleton";
 
 const BooksPage = () => {
+  const [page, setPage] = useState(0);
+
   const location = useLocation();
   const shouldRefetch = location.state?.shouldRefetch;
-  const { data, isLoading, isError, isFetching, refetch } =
-    useGetAllBooksQuery(undefined);
+  const { data, isLoading, isError, isFetching, refetch } = useGetAllBooksQuery(
+    { page }
+  );
 
   useEffect(() => {
     if (shouldRefetch) {
@@ -46,6 +49,24 @@ const BooksPage = () => {
       </div>
 
       <DataTable columns={columns} data={data?.data ?? []} />
+
+      <div className="flex justify-between mt-2">
+        <Button
+          onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
+          disabled={page === 0}
+        >
+          Previous
+        </Button>
+        <span>
+          Page {data?.pagination?.page + 1} of {data?.pagination?.totalPages}
+        </span>
+        <Button
+          onClick={() => setPage((prev) => prev + 1)}
+          disabled={page + 1 >= (data?.pagination?.totalPages ?? 1)}
+        >
+          Next
+        </Button>
+      </div>
     </section>
   );
 };
