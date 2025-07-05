@@ -1,69 +1,78 @@
-# React + TypeScript + Vite
+# Library Management
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Introduction
 
-Currently, two official plugins are available:
+**Library Management ** is a modern library management system.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Book:**
+  create new book, show existing book data, update and delete book.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Borrow:**
+  user can brrow book and see all borrowing history.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Technology Stacks
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### Frontend
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- TypeScript
+- React.js
+- Redux Toolkit
+- Redux RTK Query
+- Shadcn UI
+- Tailwind CSS
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Backend
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Node.js
+- Express.js
+- Mongoose
+- MongoDB (database)
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Installation Guideline
+
+Follow the instructions given below to install and run the project locally.
+
+### Prerequisites
+
+- Node.js
+- Code Editor (E.g. Visual Studio Code)
+
+### Steps to Install
+
+1. **Clone the Repository:**
+
+   ```bash
+   git clone https://github.com/md-suhag/library-management-client.git
+   ```
+
+2. **Navigate to the Client Directory:**
+   ```bash
+   cd library-management-client
+   ```
+3. **Install Dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+4. **Run the Frontend:**
+
+   ```bash
+   npm run dev
+   ```
+
+5. **Set Up Environment Variables:** Create a `.env.local` file in the server root directory and add the following:
+
+   ```bash
+   VITE_API_URL=your backend api
+   ```
+
+6. **Access the Application: Open your browser and go to:**
+
+   ```bash
+   http://localhost:5173
+   ```
+
+## Happy Shopping!
