@@ -1,9 +1,15 @@
-import type { GetAllBooksQueryArg } from "@/types";
+import type {
+  IAllBooksResponse,
+  GetAllBooksQueryArg,
+  IBook,
+  IDeleteBookResponse,
+  ISingleBookResponse,
+} from "@/types";
 import { baseApi } from "../../api/baseApi";
 
 const bookApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllBooks: builder.query<any, GetAllBooksQueryArg>({
+    getAllBooks: builder.query<IAllBooksResponse, GetAllBooksQueryArg>({
       query: ({ page = 0, limit = 10, filter, sortBy, sort } = {}) => {
         const params = new URLSearchParams();
         params.append("page", page.toString());
@@ -17,33 +23,36 @@ const bookApi = baseApi.injectEndpoints({
         result
           ? [
               ...result.data.map(({ _id }: { _id: string }) => ({
-                type: "Book",
+                type: "Book" as const,
                 id: _id,
               })),
-              { type: "Book", id: "LIST" },
+              { type: "Book" as const, id: "LIST" },
             ]
-          : [{ type: "Book", id: "LIST" }],
+          : [{ type: "Book" as const, id: "LIST" }],
     }),
-    getSingleBook: builder.query({
+    getSingleBook: builder.query<ISingleBookResponse, string>({
       query: (id) => `/books/${id}`,
       providesTags: (_, __, id) => [{ type: "Book", id }],
     }),
-    updateBook: builder.mutation({
+    updateBook: builder.mutation<
+      ISingleBookResponse,
+      Partial<IBook> & { id: string }
+    >({
       query: ({ id, ...data }) => ({
         method: "PUT",
         url: `/books/${id}`,
         body: data,
       }),
-      invalidatesTags: (_, __, id) => [{ type: "Book", id }],
+      invalidatesTags: (_, __, arg) => [{ type: "Book" as const, id: arg.id }],
     }),
-    createBook: builder.mutation({
+    createBook: builder.mutation<ISingleBookResponse, Partial<IBook>>({
       query: (data) => ({
         method: "POST",
         url: `/books`,
         body: data,
       }),
     }),
-    deleteBook: builder.mutation({
+    deleteBook: builder.mutation<IDeleteBookResponse, string>({
       query: (id) => ({
         method: "DELETE",
         url: `/books/${id}`,
